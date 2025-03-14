@@ -48,8 +48,8 @@ DEFCONFIG="vendor/RMX1911_defconfig"
 
 # you can set you name or host name(optional)
 
-export KBUILD_BUILD_USER="t.me@/zetaxbyte"
-export KBUILD_BUILD_HOST="Dark-Angel"
+export KBUILD_BUILD_USER="t.me@/mikkuchan"
+export KBUILD_BUILD_HOST="MikuChan"
 
 # do not modify TC_DIR and export PATCH it's been including with the proton-clang dir
 
