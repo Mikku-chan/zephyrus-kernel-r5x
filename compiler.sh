@@ -47,7 +47,9 @@ DEFCONFIG="vendor/RMX1911_defconfig"
 # you can set you name or host name(optional)
 
 export KBUILD_BUILD_USER=t.me@mikkuchan
+
 export KBUILD_BUILD_HOST=Miku-Chan
+
 
 # change TC_DIR(directory) on where you clone proton-clang toolchain
 
