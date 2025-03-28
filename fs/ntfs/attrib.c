@@ -615,6 +615,7 @@ static int ntfs_attr_find(const ATTR_TYPE type, const ntfschar *name,
 				a->name_length * sizeof(ntfschar);
 		if ((u8*)a < (u8*)ctx->mrec || (u8*)a > mrec_end ||
 		    name_end > mrec_end)
+		if ((u8 *)a < (u8 *)ctx->mrec)
 			break;
 
 		/* check whether Attribute Record Header is within bounds */
