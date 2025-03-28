@@ -1,1 +1,0 @@
-#define UTS_RELEASE "4.14.332-Zephyrus-kernel-veldora/9429ede805"
