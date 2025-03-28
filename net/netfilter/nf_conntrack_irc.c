@@ -260,13 +260,13 @@ static int help(struct sk_buff *skb, unsigned int protoff,
 	if (ctinfo != IP_CT_ESTABLISHED && ctinfo != IP_CT_ESTABLISHED_REPLY)
 		return NF_ACCEPT;
 
-	/* Not a full tcp header? */
+	/* Not a full TCP header? */
 	th = skb_header_pointer(skb, protoff, sizeof(_tcph), &_tcph);
 	if (th == NULL)
 		return NF_ACCEPT;
 
 	/* No data? */
-	dataoff = protoff + th->doff*4;
+	dataoff = protoff + th->doff * 4;
 	if (dataoff >= skb->len)
 		return NF_ACCEPT;
 
@@ -280,51 +280,17 @@ static int help(struct sk_buff *skb, unsigned int protoff,
 
 	/* If packet is coming from IRC server
 	 * parse the packet for different type of
-	 * messages (MOTD,NICK etc) and process
+	 * messages (MOTD, NICK, etc.) and process
 	 * accordingly
 	 */
 	if (dir == IP_CT_DIR_REPLY) {
-		/* strlen("NICK xxxxxx")
-		 * 5+strlen("xxxxxx")=1 (minimum length of nickname)
-		 */
-	/* Skip any whitespace */
-	while (data < data_limit - 10) {
-		if (*data == ' ' || *data == '\r' || *data == '\n')
-			data++;
-		else
-			break;
-	}
-
-	/* strlen("PRIVMSG x ")=10 */
-	if (data < data_limit - 10) {
-		if (strncasecmp("PRIVMSG ", data, 8))
-			goto out;
-		data += 8;
-	}
-
-	/* strlen(" :\1DCC SENT t AAAAAAAA P\1\n")=26
-	 * 7+MINMATCHLEN+strlen("t AAAAAAAA P\1\n")=26
-	 */
-	while (data < data_limit - (21 + MINMATCHLEN)) {
-		/* Find first " :", the start of message */
-		if (memcmp(data, " :", 2)) {
-			data++;
-			continue;
-		}
-		data += 2;
-
-		/* then check that place only for the DCC command */
-		if (memcmp(data, "\1DCC ", 5))
-			goto out;
-		data += 5;
-		/* we have at least (21+MINMATCHLEN)-(2+5) bytes valid data left */
->>>>>>> v4.14.295
-
+		/* Check for "MOTD " message */
 		while (data < data_limit - 6) {
 			if (memcmp(data, " MOTD ", 6)) {
 				data++;
 				continue;
 			}
+
 			/* MOTD message signifies successful
 			 * registration with server
 			 */
@@ -336,11 +302,7 @@ static int help(struct sk_buff *skb, unsigned int protoff,
 			goto out;
 		}
 
-		/* strlen("NICK :xxxxxx")
-		 * 6+strlen("xxxxxx")=1 (minimum length of nickname)
-		 * Parsing the server reply to get nickname
-		 * of the client
-		 */
+		/* Parsing "NICK :xxxxxx" to get the nickname */
 		data = ib_ptr;
 		data_limit = ib_ptr + skb->len - dataoff;
 		while (data < data_limit - (6 + MINLENNICK)) {
@@ -348,70 +310,44 @@ static int help(struct sk_buff *skb, unsigned int protoff,
 				data++;
 				continue;
 			}
-			data += 6;
+
+			data += 6;  // Lewati "NICK :"
 			nick_end = data;
 			i = 0;
-			while ((*nick_end != 0x0d) &&
-			       (*(nick_end + 1) != '\n')) {
+
+			/* Cari akhir nickname, dihentikan oleh CRLF ("\r\n") */
+			while ((*nick_end != 0x0d) && (*(nick_end + 1) != '\n')) {
 				nick_end++;
-				i++;
-			data += strlen(dccprotos[i]);
-			pr_debug("DCC %s detected\n", dccprotos[i]);
-
-			/* we have at least
-			 * (21+MINMATCHLEN)-7-dccprotos[i].matchlen bytes valid
-			 * data left (== 14/13 bytes) */
-			if (parse_dcc(data, data_limit, &dcc_ip,
-				       &dcc_port, &addr_beg_p, &addr_end_p)) {
-				pr_debug("unable to parse dcc command\n");
-				continue;
+				i++;  // Hitung panjang nickname
 			}
 
-			pr_debug("DCC bound ip/port: %pI4:%u\n",
-				 &dcc_ip, dcc_port);
+			pr_debug("NICK parsing detected: %.*s (length: %d)\n", i, data, i);
 
-			/* dcc_ip can be the internal OR external (NAT'ed) IP */
-			tuple = &ct->tuplehash[dir].tuple;
-			if ((tuple->src.u3.ip != dcc_ip &&
-			     ct->tuplehash[!dir].tuple.dst.u3.ip != dcc_ip) ||
-			    dcc_port == 0) {
-				net_warn_ratelimited("Forged DCC command from %pI4: %pI4:%u\n",
-						     &tuple->src.u3.ip,
-						     &dcc_ip, dcc_port);
-				continue;
-			}
-
-			exp = nf_ct_expect_alloc(ct);
-			if (exp == NULL) {
-				nf_ct_helper_log(skb, ct,
-						 "cannot alloc expectation");
-				ret = NF_DROP;
-				goto out;
->>>>>>> v4.14.293
-			}
+			/* Menyimpan nickname yang diparsing ke client struct */
 			tuple = &ct->tuplehash[!dir].tuple;
 			temp = search_client_by_ip(tuple);
 			if (temp && temp->nickname) {
-				kfree(temp->nickname);
-				temp->nickname = kmalloc(i, GFP_ATOMIC);
+				kfree(temp->nickname);  // Hapus nickname lama
+				temp->nickname = kmalloc(i, GFP_ATOMIC);  // Alokasikan memory untuk nickname baru
+
 				if (temp->nickname) {
 					temp->nickname_len = i;
-					memcpy(temp->nickname, data,
-					       temp->nickname_len);
+					memcpy(temp->nickname, data, temp->nickname_len);  // Simpan nickname
 					temp->conn_to_server = true;
 				} else {
+					/* Handle jika alokasi memori gagal */
 					list_del(&temp->ptr);
 					no_of_clients--;
 					kfree(temp);
 					ret = NF_ACCEPT;
 				}
 			}
-			/*NICK during registration*/
+
+			/* NICK parsing selesai */
 			ret = NF_ACCEPT;
 			goto out;
 		}
 	}
-
 	else{
 		/*Parsing NICK command from client to create an entry
 		 * strlen("NICK xxxxxx")

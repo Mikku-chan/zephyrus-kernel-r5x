@@ -191,37 +191,33 @@ const char * __init __weak arch_read_machine_name(void)
 
 static void __init setup_machine_fdt(phys_addr_t dt_phys)
 {
-	void *dt_virt = fixmap_remap_fdt(dt_phys);
-	const char *machine_name;
-	int size;
-	void *dt_virt = fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL);
-	const char *name;
+        int size;
+        void *dt_virt = fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL);
+        const char *machine_name;
 
-	if (dt_virt)
-		memblock_reserve(dt_phys, size);
+        if (dt_virt)
+                memblock_reserve(dt_phys, size);
 
-	if (!dt_virt || !early_init_dt_scan(dt_virt)) {
-		pr_crit("\n"
-			"Error: invalid device tree blob at physical address %pa (virtual address 0x%p)\n"
-			"The dtb must be 8-byte aligned and must not exceed 2 MB in size\n"
-			"\nPlease check your bootloader.",
-			&dt_phys, dt_virt);
+        if (!dt_virt || !early_init_dt_scan(dt_virt)) {
+                pr_crit("\n"
+                        "Error: invalid device tree blob at physical address %pa (virtual address 0x%p)\n"
+                        "The dtb must be 8-byte aligned and must not exceed 2 MB in size\n"
+                        "\nPlease check your bootloader.",
+                        &dt_phys, dt_virt);
 
-		while (true)
-			cpu_relax();
-	}
-
-	machine_name = arch_read_machine_name();
-	if (!machine_name)
+                while (true)
+                        cpu_relax();
+        }
 
 	/* Early fixups are done, map the FDT as read-only now */
 	fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL_RO);
-	name = of_flat_dt_get_machine_name();
-	if (!name)
-		return;
 
-	pr_info("Machine: %s\n", machine_name);
-	dump_stack_set_arch_desc("%s (DT)", machine_name);
+        machine_name = of_flat_dt_get_machine_name();
+        if (!machine_name)
+                return;
+
+        pr_info("Machine: %s\n", machine_name);
+        dump_stack_set_arch_desc("%s (DT)", machine_name);
 }
 
 static void __init request_standard_resources(void)
