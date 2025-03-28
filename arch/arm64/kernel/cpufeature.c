@@ -1225,7 +1225,6 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
 		 * .desc = "Hardware pagetable Dirty Bit Management",
 		 *
 		 */
-		.capability = ARM64_HW_DBM,
 		.sys_reg = SYS_ID_AA64MMFR1_EL1,
 		.sign = FTR_UNSIGNED,
 		.field_pos = ID_AA64MMFR1_HADBS_SHIFT,
