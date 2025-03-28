@@ -1060,12 +1060,6 @@ select_insn:
 		DST = AX;
 		CONT;
 	ALU_MOD_X:
-		AX = (u32) DST;
-		DST = do_div(AX, (u32) SRC);
-		div64_u64_rem(DST, SRC, &tmp);
-		DST = tmp;
-		CONT;
-	ALU_MOD_X:
 		tmp = (u32) DST;
 		DST = do_div(tmp, (u32) SRC);
 		CONT;

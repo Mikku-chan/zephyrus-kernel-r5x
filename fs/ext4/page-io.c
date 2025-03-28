@@ -520,10 +520,6 @@ int ext4_bio_write_page(struct ext4_io_submit *io,
 	do {
 		if (!buffer_async_write(bh))
 			continue;
-		if (data_page)
-			io->io_flags |= EXT4_IO_ENCRYPTED;
-		ret = io_submit_add_bh(io, inode,
-				       data_page ? data_page : page, bh);
 		ret = io_submit_add_bh(io, inode, page, data_page, bh);
 		if (ret) {
 			/*
