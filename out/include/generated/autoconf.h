@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm64 4.14.336 Kernel Configuration
+ * Linux/arm64 4.14.340-openela Kernel Configuration
  *
  */
 #define CONFIG_WIL6210_PLATFORM_MSM 1

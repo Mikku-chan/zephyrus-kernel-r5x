@@ -281,13 +281,8 @@ static int binder_update_page_range(struct binder_alloc *alloc, int allocate,
 		/* vm_insert_page does not seem to increment the refcount */
 	}
 	if (mm) {
-<<<<<<< HEAD
 		up_read(&mm->mmap_sem);
 		mmput(mm);
-=======
-		up_write(&mm->mmap_sem);
-		mmput_async(mm);
->>>>>>> v4.14.338-openela
 	}
 	return 0;
 
@@ -319,13 +314,8 @@ err_page_ptr_cleared:
 	}
 err_no_vma:
 	if (mm) {
-<<<<<<< HEAD
 		up_read(&mm->mmap_sem);
 		mmput(mm);
-=======
-		up_write(&mm->mmap_sem);
-		mmput_async(mm);
->>>>>>> v4.14.338-openela
 	}
 	return vma ? -ENOMEM : -ESRCH;
 }

@@ -1251,7 +1251,7 @@ deps_config := \
 include/config/auto.conf: \
 	$(deps_config)
 
-ifneq "$(KERNELVERSION)" "4.14.336"
+ifneq "$(KERNELVERSION)" "4.14.340-openela"
 include/config/auto.conf: FORCE
 endif
 ifneq "$(ARCH)" "arm64"
