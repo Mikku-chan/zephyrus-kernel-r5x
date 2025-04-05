@@ -105,9 +105,8 @@ static int issue_discard_thread(void *data)
 
 		sb_start_intwrite(sbi->s_sb);
 
-		issued = ext4_trim_groups(sbi->s_sb, dcc);
-
 		if (issued > 0) {//issued >0
+		issued = ext4_trim_groups(sbi->s_sb, dcc);
 			wait_ms = dcc->dpolicy.min_interval;
 		}else if ((issued == 0) && dcc->io_interrupted){//io_interrupted
 			dcc->io_interrupted = false;
