@@ -1858,62 +1858,62 @@
 		wake-capable-sensor;
 		trips {
 			batt_trip0: batt-trip0 {
-				temperature = <45000>;
+				temperature = <55000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			gold_trip: gold-trip {
-				temperature = <46000>;
+				temperature = <60000>;
 				hysteresis = <0>;
 				type = "passive";
 			};
 			modem_trip0: modem-trip0 {
-				temperature = <46000>;
+				temperature = <60000>;
 				hysteresis = <4000>;
 				type = "passive";
 			};
 			batt_trip1: batt-trip1 {
-				temperature = <47000>;
+				temperature = <60000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			modem_trip1: modem-trip1 {
-				temperature = <48000>;
+				temperature = <65000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			skin_gpu_trip: skin-gpu-trip {
-				temperature = <48000>;
+				temperature = <65000>;
 				hysteresis = <0>;
 				type = "passive";
 			};
 			batt_trip2: batt-trip2 {
-				temperature = <49000>;
+				temperature = <68000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			modem_trip2: modem-trip2 {
-				temperature = <50000>;
+				temperature = <70000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			batt_trip3: batt-trip3 {
-				temperature = <51000>;
+				temperature = <70000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			silver_trip: silver-trip {
-				temperature = <52000>;
+				temperature = <75000>;
 				hysteresis = <0>;
 				type = "passive";
 			};
 			modem_trip3: modem-trip3 {
-				temperature = <52000>;
+				temperature = <80000>;
 				hysteresis = <2000>;
 				type = "passive";
 			};
 			cx_emer_trip: cx-emer-trip {
-				temperature = <52000>;
+				temperature = <90000>;
 				hysteresis = <4000>;
 				type = "passive";
 			};
