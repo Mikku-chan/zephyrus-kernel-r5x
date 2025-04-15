@@ -21,6 +21,12 @@
 #define VALID_FLAGS (SYNC_FILE_RANGE_WAIT_BEFORE|SYNC_FILE_RANGE_WRITE| \
 			SYNC_FILE_RANGE_WAIT_AFTER)
 
+#include <linux/moduleparam.h>
+
+static bool fsync_enabled = true;
+module_param(fsync_enabled, bool, 0644);
+MODULE_PARM_DESC(fsync_enabled, "Enable or disable fsync");
+
 /*
  * Do the filesystem syncing work. For simple filesystems
  * writeback_inodes_sb(sb) just dirties buffers with inodes so we have to
@@ -181,6 +187,12 @@ SYSCALL_DEFINE1(syncfs, int, fd)
  * @datasync is set only metadata needed to access modified file data is
  * written.
  */
+
+int vfs_fsync(struct file *file, int datasync)
+{
+    if (!fsync_enabled)
+        return 0;
+
 int vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
 {
 	struct inode *inode = file->f_mapping->host;
