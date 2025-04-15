@@ -177,6 +177,14 @@ config BLK_DEBUG_FS
 	Unless you are building a kernel for a tiny system, you should
 	say Y here.
 
+config CFQ
+	bool "CFQ I/O scheduler"
+	default y
+
+config DEADLINE
+	bool "Deadline I/O scheduler"
+	default y
+
 config BLK_SED_OPAL
 	bool "Logic for interfacing with Opal enabled SEDs"
 	---help---

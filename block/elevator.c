@@ -43,6 +43,15 @@
 #include "blk-mq-sched.h"
 #include "blk-wbt.h"
 
+static char elevator_default[16] __initdata = "deadline";
+
+static int __init custom_elevator_setup(char *str)
+{
+    strlcpy(elevator_default, str, sizeof(elevator_default));
+    return 1;
+}
+__setup("elevator=", custom_elevator_setup);
+
 static DEFINE_SPINLOCK(elv_list_lock);
 static LIST_HEAD(elv_list);
 
