@@ -155,7 +155,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 		};
@@ -171,7 +171,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 		};
@@ -186,7 +186,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 		};
@@ -201,7 +201,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 		};
@@ -216,7 +216,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -241,7 +241,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -266,7 +266,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -291,7 +291,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -316,7 +316,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -341,7 +341,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -366,7 +366,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -391,7 +391,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -416,7 +416,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -441,7 +441,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -466,7 +466,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -491,7 +491,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -516,7 +516,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -541,7 +541,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -566,7 +566,7 @@
 		trips {
 			active-config0 {
 				temperature = <125000>;
-				hysteresis = <1000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			reset-mon-1-cfg {
@@ -650,7 +650,7 @@
 		trips {
 			silver-trip {
 				temperature = <120000>;
-				hysteresis = <0>;
+				hysteresis = <10000>;
 				type = "passive";
 			};
 		};
@@ -1859,62 +1859,62 @@
 		trips {
 			batt_trip0: batt-trip0 {
 				temperature = <65000>;
-				hysteresis = <2000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			gold_trip: gold-trip {
 				temperature = <65000>;
-				hysteresis = <0>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			modem_trip0: modem-trip0 {
 				temperature = <65000>;
-				hysteresis = <4000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			batt_trip1: batt-trip1 {
 				temperature = <65000>;
-				hysteresis = <2000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			modem_trip1: modem-trip1 {
 				temperature = <66000>;
-				hysteresis = <2000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			skin_gpu_trip: skin-gpu-trip {
 				temperature = <68000>;
-				hysteresis = <0>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			batt_trip2: batt-trip2 {
 				temperature = <70000>;
-				hysteresis = <2000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			modem_trip2: modem-trip2 {
 				temperature = <70000>;
-				hysteresis = <2000>;
+				hysteresis = <5000>;
 				type = "passive";
 			};
 			batt_trip3: batt-trip3 {
 				temperature = <75000>;
-				hysteresis = <2000>;
+				hysteresis = <6000>;
 				type = "passive";
 			};
 			silver_trip: silver-trip {
-				temperature = <75000>;
-				hysteresis = <0>;
+				temperature = <80000>;
+				hysteresis = <7000>;
 				type = "passive";
 			};
 			modem_trip3: modem-trip3 {
 				temperature = <85000>;
-				hysteresis = <2000>;
+				hysteresis = <7000>;
 				type = "passive";
 			};
 			cx_emer_trip: cx-emer-trip {
 				temperature = <90000>;
-				hysteresis = <4000>;
+				hysteresis = <7000>;
 				type = "passive";
 			};
 		};
