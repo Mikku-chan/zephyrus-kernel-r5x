@@ -117,6 +117,9 @@ config LOCALVERSION_BRANCH_SHA
 	  A cleaner version of LOCALVERSION_AUTO, contains branch name
 	  and current tree.
 
+config HAVE_KERNEL_LZ4
+        bool
+
 config HAVE_KERNEL_GZIP
 	bool
 
@@ -132,13 +135,10 @@ config HAVE_KERNEL_XZ
 config HAVE_KERNEL_LZO
 	bool
 
-config HAVE_KERNEL_LZ4
-	bool
-
 choice
 	prompt "Kernel compression mode"
-	default KERNEL_GZIP
-	depends on HAVE_KERNEL_GZIP || HAVE_KERNEL_BZIP2 || HAVE_KERNEL_LZMA || HAVE_KERNEL_XZ || HAVE_KERNEL_LZO || HAVE_KERNEL_LZ4
+	default KERNEL_LZ4
+	depends on HAVE_KERNEL_LZ4 ||HAVE_KERNEL_GZIP || HAVE_KERNEL_BZIP2 || HAVE_KERNEL_LZMA || HAVE_KERNEL_XZ || HAVE_KERNEL_LZO
 	help
 	  The linux kernel is a kind of self-extracting executable.
 	  Several compression algorithms are available, which differ
@@ -155,7 +155,7 @@ choice
 	  are low on disk space (embedded systems), but for whom ram
 	  size matters less.
 
-	  If in doubt, select 'gzip'
+	  If in doubt, select 'lz4'
 
 config KERNEL_GZIP
 	bool "Gzip"
@@ -662,7 +662,7 @@ menu "FAIR Scheuler tunables"
 
 choice
 	prompt "Utilization's PELT half-Life"
-	default PELT_UTIL_HALFLIFE_32
+	default PELT_UTIL_HALFLIFE_16
 	help
 	  Allows choosing one of the possible values for the PELT half-life to
 	  be used for the update of the utilization of tasks and CPUs.
@@ -672,21 +672,11 @@ choice
 
 	  If not sure, use the default of 32 ms.
 
-config PELT_UTIL_HALFLIFE_32
-	bool "32 ms, default for server"
-
 config PELT_UTIL_HALFLIFE_16
 	bool "16 ms, suggested for interactive workloads"
 	help
 	  Use 16ms as PELT half-life value. This will increase the ramp-up and
 	  decay of utlization and load twice as fast as for the default
-	  configuration using 32ms.
-
-config PELT_UTIL_HALFLIFE_8
-	bool "8 ms, very fast"
-	help
-	  Use 8ms as PELT half-life value. This will increase the ramp-up and
-	  decay of utlization and load four time as fast as for the default
 	  configuration using 32ms.
 
 endchoice
@@ -2113,3 +2103,4 @@ config ASN1
 	  functions to call on what tags.
 
 source "kernel/Kconfig.locks"
+

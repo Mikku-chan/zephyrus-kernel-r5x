@@ -129,3 +129,4 @@ $(obj)/config_data.gz: arch/arm64/configs/RMX1911-stock_defconfig FORCE
 targets += config_data.h
 $(obj)/config_data.h: $(obj)/config_data.gz FORCE
 	$(call filechk,ikconfiggz)
+

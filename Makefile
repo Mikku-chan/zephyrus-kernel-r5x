@@ -1030,8 +1030,11 @@ export mod_strip_cmd
 
 mod_compress_cmd = true
 ifdef CONFIG_MODULE_COMPRESS
-  ifdef CONFIG_MODULE_COMPRESS_GZIP
-    mod_compress_cmd = gzip -n -f
+  ifdef CONFIG_MODULE_COMPRESS_LZ4
+    mod_compress_cmd = lz4 -n -f
+  endif # CONFIG_MODULE_COMPRESS_LZ4
+ifdef CONFIG_MODULE_COMPRESS_GZIP
+    mod_compress_cmd = gzip -f
   endif # CONFIG_MODULE_COMPRESS_GZIP
   ifdef CONFIG_MODULE_COMPRESS_XZ
     mod_compress_cmd = xz -f
@@ -1042,7 +1045,8 @@ export mod_compress_cmd
 # Select initial ramdisk compression format, default is gzip(1).
 # This shall be used by the dracut(8) tool while creating an initramfs image.
 #
-INITRD_COMPRESS-y                  := gzip
+INITRD_COMPRESS-y                  := lz4
+INITRD_COMPRESS-$(CONFIG_RD_GZIP)  := gzip
 INITRD_COMPRESS-$(CONFIG_RD_BZIP2) := bzip2
 INITRD_COMPRESS-$(CONFIG_RD_LZMA)  := lzma
 INITRD_COMPRESS-$(CONFIG_RD_XZ)    := xz
@@ -1890,3 +1894,4 @@ FORCE:
 # Declare the contents of the .PHONY variable as phony.  We keep that
 # information in a variable so we can use it in if_changed and friends.
 .PHONY: $(PHONY)
+

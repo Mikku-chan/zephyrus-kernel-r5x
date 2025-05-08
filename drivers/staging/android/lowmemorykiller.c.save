@@ -86,19 +86,15 @@ static short lowmem_adj[6] = {
 	0,
 	1,
 	6,
-	9,
-	15,
-	1000
+	12,
 };
 
-static int lowmem_adj_size = 6;
+static int lowmem_adj_size = 4;
 static int lowmem_minfree[6] = {
-        4 * 1024,        /* 16MB */
-        6 * 1024,        /* 24MB */
-        8 * 1024,        /* 32MB */
-        12 * 1024,       /* 48MB */
-        16 * 1024,       /* 64MB */
-        20 * 1024        /* 80MB */
+	3 * 512,	/* 6MB */
+	2 * 1024,	/* 8MB */
+	4 * 1024,	/* 16MB */
+v	16 * 1024,	/* 64MB */
 };
 
 #ifdef CONFIG_PRODUCT_REALME_TRINKET
@@ -149,7 +145,7 @@ module_param_named(enable_adaptive_lmk, enable_adaptive_lmk, int, 0644);
  * 90-94. Usually this is a pseudo minfree value, higher than the
  * highest configured value in minfree array.
  */
-static int vmpressure_file_min = 50;
+static int vmpressure_file_min;
 module_param_named(vmpressure_file_min, vmpressure_file_min, int, 0644);
 
 /* User knob to enable/disable oom reaping feature */
@@ -986,5 +982,4 @@ module_param_named(lmk_fast_run, lmk_fast_run, int, S_IRUGO | S_IWUSR);
 
 #ifdef CONFIG_PRODUCT_REALME_TRINKET
 module_param_named(almk_totalram_ratio, almk_totalram_ratio, uint, S_IRUGO | S_IWUSR);
-
 #endif
