@@ -622,7 +622,7 @@ config LD_DEAD_CODE_DATA_ELIMINATION
 	  is used to distinguish them from label names / C identifiers.
 
 config LTO
-	def_bool n
+	def_bool y
 
 config ARCH_SUPPORTS_LTO_CLANG
 	bool
